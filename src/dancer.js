@@ -1,11 +1,25 @@
 // Creates and returns a new dancer object that can step
 var Dancer = function(top, left, timeBetweenSteps) {
-
+  this.linedUp = false;
   // use jQuery to create an HTML <span> tag
-  this.$node = $('<span class="dancer"></span>');
+  this.$node = $('<span class="dancer"><img src="images/head.gif" /></span>');
   this.timeBetweenSteps = timeBetweenSteps;
-  this.top = top;
-  this.left = left;
+
+  var image = new Image();
+  image.src = 'images/head.gif';
+  this.img = image;
+
+  var height = $("body").height();
+  var width = $("body").width(); 
+  
+  var adjustY = Math.max(top + this.img.height - height , 0); 
+  var adjustX = Math.max(left + this.img.width - width , 0); 
+
+  this.xSpeed = 0;
+  this.ySpeed = 0;
+
+  this.top = top - adjustY;
+  this.left = left - adjustX;
   // now that we have defined the dancer object, we can start setting up important parts of it by calling the methods we wrote
   // this one sets the position to some random default point within the body
   this.setPosition();
@@ -17,10 +31,11 @@ Dancer.prototype.constructor = Dancer;
 Dancer.prototype.step = function() {
   // the basic Dancer doesn't do anything interesting at all on each step,
   // it just schedules the next step
-
-  setTimeout(function() {
-    this.step();
-  }.bind(this), this.timeBetweenSteps);
+  if (!this.linedUp) {
+    setTimeout(function() {
+      this.step();
+    }.bind(this), this.timeBetweenSteps);
+  }
 };
 
 Dancer.prototype.setPosition = function() {
@@ -33,3 +48,16 @@ Dancer.prototype.setPosition = function() {
   };
   this.$node.css(styleSettings);
 };
+
+Dancer.prototype.lineUp = function(left) {
+  this.linedUp = true;
+  var top = $("body").height() / 2 ;
+
+  this.$node.animate({ 
+    top: top,
+    left: left
+  }, 2000 );
+
+  this.top = top;
+  this.left = left;
+}
