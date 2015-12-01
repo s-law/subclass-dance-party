@@ -28,6 +28,25 @@ $(document).ready(function() {
       Math.random() * 1000
     );
     $('body').append(dancer.$node);
+    window.dancers.push(dancer);
+  });
+
+  $(".lineUpButton").on("click", function(event) {
+    var gap = $("body").width() / (window.dancers.length);
+    var mark = 20;
+    for (var i = 0; i < window.dancers.length; i++) {
+      var node = window.dancers[i];
+      node.lineUp(mark);
+      mark += gap;
+    }
+  });
+
+  $(".skateButton").on("click", function(event) {
+    for (var i = 0; i < window.dancers.length; i++) {
+      var node = window.dancers[i];
+      node.linedUp = false;
+      node.step();
+    }
   });
 });
 
