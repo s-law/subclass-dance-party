@@ -20,6 +20,8 @@ var Dancer = function(top, left, timeBetweenSteps) {
 
   this.top = top - adjustY;
   this.left = left - adjustX;
+
+  this.role = "";
   // now that we have defined the dancer object, we can start setting up important parts of it by calling the methods we wrote
   // this one sets the position to some random default point within the body
   this.setPosition();
@@ -36,7 +38,6 @@ Dancer.prototype.step = function() {
       this.step();
     }.bind(this), this.timeBetweenSteps);
   }
-  this.collisionCheck();
 };
 
 Dancer.prototype.setPosition = function() {
@@ -49,43 +50,3 @@ Dancer.prototype.setPosition = function() {
   };
   this.$node.css(styleSettings);
 };
-
-Dancer.prototype.lineUp = function(left) {
-  this.linedUp = true;
-  var top = $("body").height() / 2 ;
-
-  this.$node.animate({ 
-    top: top,
-    left: left
-  }, 2000 );
-
-  this.top = top;
-  this.left = left;
-}
-
-Dancer.prototype.collisionCheck = function() {
-  var source =  {x: this.left + this.img.width/2, y: this.top + this.img.height/2, width: this.img.width/4 , height: this.img.height/4};
-
-  var detectCollision = function(rect1, rect2) {
-    if (rect1.x < rect2.x + rect2.width && rect1.x + rect1.width > rect2.x &&
-     rect1.y < rect2.y + rect2.height && rect1.height + rect1.y > rect2.y) {
-      return true;
-    }
-
-    return false;
-  };
-
-  for (var i = 0; i < window.dancers.length; i++) {
-    var node = window.dancers[i];
-    var target = {x: node.left + node.img.width/2, y: node.top + node.img.height/2, width: node.img.width/4, height: node.img.height/4};
-    
-    if (detectCollision(source,target)) {
-      this.xSpeed *=-1;
-      this.ySpeed *=-1;
-
-      node.xSpeed *=-1;
-      node.ySpeed *=-1;
-      return;
-    }
-  }
-}
