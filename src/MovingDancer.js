@@ -1,10 +1,11 @@
 var MovingDancer = function(top, left, timeBetweenSteps) {
   this.xOrYFlag = Math.random() < 0.5; // if true, horizontal
-  this.speed = Math.random() * 15 + 10;
+  Dancer.call(this, top, left, timeBetweenSteps);
+  this.xSpeed = Math.random() * 15 + 10;
+  this.ySpeed = this.xSpeed;
   this.range = Math.random() * 200 + 30;
   this.leftOG = left;
   this.topOG = top;
-  Dancer.call(this, top, left, timeBetweenSteps);
 };
 
 MovingDancer.prototype = Object.create(Dancer.prototype);
@@ -18,17 +19,17 @@ MovingDancer.prototype.step = function() {
   // See http://api.jquery.com/category/effects/ for this and
   // other effects you can use on a jQuery-wrapped html tag.
   
-  if (xOrYFlag) {
+  if (this.xOrYFlag) {
     if (this.left >= this.leftOG + this.range || this.left <= this.leftOG - this.range) {
-      this.speed *= -1;
+      this.xSpeed *= -1;
     }
-    this.left += this.speed;
+    this.left += this.xSpeed;
   }
   else {
     if (this.top >= this.topOG + this.range || this.top<= this.topOG - this.range) {
-      this.speed *= -1;
+      this.ySpeed *= -1;
     }
-    this.top += this.speed;
+    this.top += this.ySpeed;
   }
 
   this.setPosition();
