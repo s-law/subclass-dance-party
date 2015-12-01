@@ -33,3 +33,34 @@ describe("blinkyDancer", function() {
     });
   });
 });
+
+describe("slidingDancer", function() {
+
+  var slidingDancer;
+  var timeBetweenSteps = 100;
+  var clock;
+
+  beforeEach(function() {
+    clock = sinon.useFakeTimers();
+    slidingDancer = new SlidingDancer(10, 20, timeBetweenSteps);
+  });
+
+  it("should have a jQuery $node object", function() {
+    expect(slidingDancer.$node).to.be.an.instanceof(jQuery);
+  });
+
+
+  describe("dance", function() {
+    it("should call step at least four times per second", function() {
+      sinon.spy(slidingDancer, "step");
+      expect(slidingDancer.step.callCount).to.be.equal(0);
+      //slidingDancer = new slidingDancer(10, 20, timeBetweenSteps);
+      clock.tick(timeBetweenSteps);
+
+      expect(slidingDancer.step.callCount).to.be.equal(4);
+
+      clock.tick(timeBetweenSteps);
+      expect(slidingDancer.step.callCount).to.be.equal(8);
+    });
+  });
+});
