@@ -3,6 +3,16 @@ var Dancer = function(top, left, timeBetweenSteps) {
   this.linedUp = false;
   // use jQuery to create an HTML <span> tag
   this.$node = $('<span class="dancer"><img src="images/head.gif" /></span>');
+  this.$node.on('click', function(event) {
+    if (this.oldImg === '') {
+      this.oldImg = this.$node.find('img').attr('src');
+      this.$node.find('img').attr('src', 'images/penguin.gif');
+    }
+    else {
+      this.$node.find('img').attr('src', this.oldImg);
+      this.oldImg = '';
+    }
+  }.bind(this));
   this.timeBetweenSteps = timeBetweenSteps;
 
   var height = $("body").height();
@@ -18,6 +28,7 @@ var Dancer = function(top, left, timeBetweenSteps) {
   this.left = left - adjustX;
 
   this.role = "";
+  this.oldImg = '';
   // now that we have defined the dancer object, we can start setting up important parts of it by calling the methods we wrote
   // this one sets the position to some random default point within the body
   this.setPosition();
