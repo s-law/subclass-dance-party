@@ -1,4 +1,7 @@
 var Player = function(top, left, timeBetweenSteps) {
+  var image = new Image();
+  image.src = 'images/head.gif';
+  this.img = image;
   Dancer.call(this, top, left, 25);
   this.ySpeed = 10 + (10 * Math.random());
   this.xSpeed = 10 + (10 * Math.random());
@@ -65,8 +68,8 @@ Player.prototype.collisionCheck = function() {
     return false;
   };
 
-  for (var i = 0; i < window.dancers.length; i++) {
-    var node = window.dancers[i];
+  for (var i = 0; i < window.players.length; i++) {
+    var node = window.players[i];
     var target = {x: node.left + node.img.width/2, y: node.top + node.img.height/2, width: node.img.width/4, height: node.img.height/4};
     
     if (detectCollision(source,target)) {
@@ -79,21 +82,5 @@ Player.prototype.collisionCheck = function() {
       return;
     }
   }
-}
-
-Player.prototype.leaveIce = function() {
-  this.linedUp = true;
-  var width = $("body").width();
-
-  if (this.left < width/2) {
-    this.$node.animate({ 
-      left: -1000
-    }, 2000 );
-    this.left = -1000;
-  } else {
-    this.$node.animate({ 
-      left: width + 1000
-    }, 2000 );
-    this.left = width + 1000;
-  }
 };
+
