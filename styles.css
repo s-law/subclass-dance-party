@@ -33,6 +33,7 @@ body, a:link, a:visited, a:active{
 }
 .dancer {
   position:absolute;
+  border-style: none;
 }
 .flipped {
     transform: scale(-1, 1);
@@ -41,4 +42,16 @@ body, a:link, a:visited, a:active{
     -o-transform: scale(-1, 1);
     -khtml-transform: scale(-1, 1);
     -ms-transform: scale(-1, 1);
+}
+.flying {
+  background-image: url('images/flying.gif');
+  background-repeat: no-repeat; 
+  width: 208px;
+  height: 143px;
+}
+.spinning {
+  background-image: url('images/spinning.gif');
+  background-repeat: no-repeat; 
+  width: 169px;
+  height: 124px;
 }
