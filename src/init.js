@@ -76,24 +76,35 @@ $(document).ready(function() {
     var snoopy = new Zamboni(0);
 
     snoopy.clean();
+  });
 
-    // for (var i = 0; i < $('body').height()/snoopy.imag; i++) {
-      // snoopy.$node.animate({ 
-      // top: snoopy.top,
-      // left: $("body").width() + snoopy.img.width
-      // }, 2000 );
+  $('.halftimeButton').on('click', function(event) {
+    if (!window.halftime){
+      $(".leaveButton").click();
+      window.halftime = true;
 
-    //   snoopy.top = snoopy.top + snoopy.img.height;
-    //   snoopy.left = $("body").width() + snoopy.img.width;
-      
-    //   snoopy.$node.animate({ 
-    //   top: snoopy.top,
-    //   left: -1 * snoopy.img.width
-    //   }, 2000 );
+      var skater0 = new FigureSkater(0, $('body').width() + 400, 25);
+      $('body').append(skater0.$node);
+      skater0.skateAround(110, 300);
 
-    //   snoopy.top = snoopy.top + snoopy.img.height;
-    //   snoopy.left = -1 * snoopy.img.width;      
-    // }
+      var skater1 = new FigureSkater(0, $('body').width() + 400, 25);
+      $('body').append(skater1.$node);
+      skater1.skateAround($('body').width()/4 - 110, 100);
+
+      var skater2 = new FigureSkater(0, $('body').width() + 400, 25);
+      $('body').append(skater2.$node);
+      skater2.skateAround($('body').width()/2 - 110, 100);
+
+      var skater3 = new FigureSkater(0, $('body').width() + 400, 25);
+      $('body').append(skater3.$node);
+      skater3.skateAround(3*$('body').width()/4 - 110, 100);    
+
+      var skater4 = new FigureSkater(0, $('body').width() + 400, 25);
+      $('body').append(skater4.$node);
+      skater4.skateAround($('body').width() - 330, 300);
+    } else {
+      window.halftime = false;
+    }
   });
 });
 
