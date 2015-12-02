@@ -5,10 +5,6 @@ var Dancer = function(top, left, timeBetweenSteps) {
   this.$node = $('<span class="dancer"><img src="images/head.gif" /></span>');
   this.timeBetweenSteps = timeBetweenSteps;
 
-  var image = new Image();
-  image.src = 'images/head.gif';
-  this.img = image;
-
   var height = $("body").height();
   var width = $("body").width(); 
   
@@ -49,4 +45,21 @@ Dancer.prototype.setPosition = function() {
     left: this.left
   };
   this.$node.css(styleSettings);
+};
+
+Dancer.prototype.leaveIce = function() {
+  this.linedUp = true;
+  var width = $("body").width();
+
+  if (this.left < width/2) {
+    this.$node.animate({ 
+      left: -1000
+    }, 2000 );
+    this.left = -1000;
+  } else {
+    this.$node.animate({ 
+      left: width + 1000
+    }, 2000 );
+    this.left = width + 1000;
+  }
 };
