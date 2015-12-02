@@ -1,6 +1,8 @@
 $(document).ready(function() {
   window.dancers = [];
   window.players = [];
+  var anthem = document.createElement('audio');
+  anthem.setAttribute('src', 'anthem.mp3');
 
   $(".addDancerButton").on("click", function(event) {
     /* This function sets up the click handlers for the create-dancer
@@ -45,6 +47,7 @@ $(document).ready(function() {
       node.lineUp(mark, last);
       mark += gap;
     }
+    anthem.play();
     if ($(".lineUpButton").text() === "come back") {
       $(".lineUpButton").text("line up");
       $(".skateButton").show();
@@ -58,6 +61,7 @@ $(document).ready(function() {
       node.linedUp = false;
       node.step();
     }
+    anthem.pause();
   });
 
   $(".leaveButton").on("click", function(event) {
@@ -80,6 +84,7 @@ $(document).ready(function() {
 
   $('.halftimeButton').on('click', function(event) {
     if (!window.halftime){
+      $('.halftimeButton').text('let\'s get on with it');
       $(".leaveButton").click();
       window.halftime = true;
 
@@ -104,6 +109,7 @@ $(document).ready(function() {
       skater4.skateAround($('body').width() - 330, 300);
     } else {
       window.halftime = false;
+      $('.halftimeButton').text('halftime!');
     }
   });
 });
